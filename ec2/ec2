@@ -1,0 +1,30 @@
+#!/usr/local/bin/python3
+import sys
+import list_instances as list
+import terminate
+import reboot_instances as reboot
+import start_stop
+if len(sys.argv) <= 1:
+    print("Error: Invalid number of arguments")
+    print("Usage: ec2 <action>")
+    exit(1)
+
+action = str(sys.argv[1]).lower()
+
+match action:
+    case 'list':
+        list.list_instances()
+    case 'start':
+        instance_id = sys.argv[2]
+        start_stop.start(instance_id=instance_id)
+    case 'stop':
+        instance_id = sys.argv[2]
+        start_stop.stop(instance_id=instance_id)
+    case 'reboot':
+        instance_id = sys.argv[2]
+        reboot.reboot(instance_id=instance_id)
+    case 'terminate':
+        instance_id = sys.argv[2]
+        terminate.terminate_instance(instance_id=instance_id)
+    case default:
+        print(f"Invalid action {action}")
